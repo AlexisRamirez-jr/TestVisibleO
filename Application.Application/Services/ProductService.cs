@@ -50,9 +50,18 @@ namespace Application.Application.Services
             await _repository.UpdateAsync(product);
         }
 
+        //public async Task DeleteProductAsync(int id)
+        //{
+        //    await _repository.DeleteAsync(id);
+        //}
         public async Task DeleteProductAsync(int id)
         {
-            await _repository.DeleteAsync(id);
+            var product = await _repository.GetByIdAsync(id);
+            if (product == null)
+                throw new KeyNotFoundException("Producto no encontrado.");
+
+            await _repository.DeleteAsync(product.Id);
         }
+
     }
 }
