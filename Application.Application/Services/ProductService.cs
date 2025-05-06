@@ -27,11 +27,16 @@ namespace TestVisibleO.Application.Services
             if (dto.Price <= 0)
                 throw new ArgumentException("El precio debe ser mayor que cero.");
 
+            if (dto.DiscountPrice.HasValue && dto.DiscountPrice >= dto.Price)
+                throw new ArgumentException("El precio con descuento debe ser menor que el precio original.");
+
+
             var product = new Product
             {
                 NameProduct = dto.Name,
                 DescriptionProduct = dto.Description,
                 Price = dto.Price,
+                DiscountPrice = dto.DiscountPrice,
                 ImageUrl = dto.ImageUrl
             };
 
@@ -59,9 +64,13 @@ namespace TestVisibleO.Application.Services
             if (product == null)
                 throw new KeyNotFoundException("Producto no encontrado.");
 
+            if (dto.DiscountPrice.HasValue && dto.DiscountPrice >= dto.Price)
+                throw new ArgumentException("El precio con descuento debe ser menor que el precio original.");
+
             product.NameProduct = dto.Name;
             product.DescriptionProduct = dto.Description;
             product.Price = dto.Price;
+            product.DiscountPrice = dto.DiscountPrice;
             product.ImageUrl = dto.ImageUrl;
 
             await _repository.UpdateAsync(product);
@@ -69,7 +78,11 @@ namespace TestVisibleO.Application.Services
 
         public async Task DeleteProductAsync(int id)
         {
-            await _repository.DeleteAsync(id);
+            var product = await _repository.GetByIdAsync(id);
+            if (product == null)
+                throw new KeyNotFoundException("Producto no encontrado.");
+
+            await _repository.DeleteAsync(product.Id);
         }
     }
 }

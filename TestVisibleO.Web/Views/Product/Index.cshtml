@@ -11,13 +11,23 @@
         {
             <tr>
                 <td>@item.NameProduct</td>
-                <td>$@item.Price</td>
+                <td>
+                    @if (item.DiscountPrice.HasValue)
+                    {
+                        <span style="text-decoration:line-through;">$@item.Price</span>
+                        <span class="text-success">$@item.DiscountPrice</span>
+                    }
+                    else
+                    {
+                        <span>$@item.Price</span>
+                    }
+                </td>
                 <td>
                     <a href="/Product/Edit/@item.Id" class="btn btn-sm btn-warning">Editar</a>
                     <a href="/Product/Delete/@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
                 </td>
-
             </tr>
+
         }
     </tbody>
 </table>
