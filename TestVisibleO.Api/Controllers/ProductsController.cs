@@ -1,7 +1,6 @@
-﻿using Application.Application.DTOs;
-using Application.Application.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using TestVisibleO.Application.DTOs;
+using TestVisibleO.Application.Interfaces;
 
 namespace TestVisibleO.Api.Controllers
 {

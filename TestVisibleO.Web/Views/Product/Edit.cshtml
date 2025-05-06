@@ -1,0 +1,29 @@
+﻿@model TestVisibleO.Application.DTOs.UpdateProductDto
+
+<h2>Editar Producto</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label>Nombre</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Descripción</label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Precio</label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>URL Imagen</label>
+        <input asp-for="ImageUrl" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">Guardar Cambios</button>
+</form>

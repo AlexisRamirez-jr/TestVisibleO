@@ -1,0 +1,23 @@
+﻿@model IEnumerable<TestVisibleO.Domain.Models.Product>
+
+<h2>Lista de Productos</h2>
+<a class="btn btn-primary" href="/Product/Create">Nuevo Producto</a>
+<table class="table">
+    <thead>
+        <tr><th>Nombre</th><th>Precio</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NameProduct</td>
+                <td>$@item.Price</td>
+                <td>
+                    <a href="/Product/Edit/@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="/Product/Delete/@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

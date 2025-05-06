@@ -1,9 +1,9 @@
-﻿using Application.Application.DTOs;
-using Application.Application.Interfaces;
+﻿using TestVisibleO.Application.DTOs;
+using TestVisibleO.Application.Interfaces;
 using TestVisibleO.Domain.Interfaces;
 using TestVisibleO.Domain.Models;
 
-namespace Application.Application.Services
+namespace TestVisibleO.Application.Services
 {
     public class ProductService : IProductService
     {
@@ -18,7 +18,10 @@ namespace Application.Application.Services
         {
             return await _repository.GetAllAsync();
         }
-
+        public async Task<Product> GetByIdAsync(int id)
+        {
+            return await _repository.GetByIdAsync(id);
+        }
         public async Task AddProductAsync(CreateProductDto dto)
         {
             if (dto.Price <= 0)
@@ -46,6 +49,20 @@ namespace Application.Application.Services
 
             product.Price = dto.Price;
             product.DiscountPrice = dto.DiscountPrice;
+
+            await _repository.UpdateAsync(product);
+        }
+
+        public async Task UpdateProductAsync(UpdateProductDto dto)
+        {
+            var product = await _repository.GetByIdAsync(dto.Id);
+            if (product == null)
+                throw new KeyNotFoundException("Producto no encontrado.");
+
+            product.NameProduct = dto.Name;
+            product.DescriptionProduct = dto.Description;
+            product.Price = dto.Price;
+            product.ImageUrl = dto.ImageUrl;
 
             await _repository.UpdateAsync(product);
         }
