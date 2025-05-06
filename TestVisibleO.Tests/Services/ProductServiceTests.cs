@@ -1,7 +1,8 @@
-using Application.Application.DTOs;
-using Application.Application.Services;
+
 using FluentAssertions;
 using Moq;
+using TestVisibleO.Application.DTOs;
+using TestVisibleO.Application.Services;
 using TestVisibleO.Domain.Interfaces;
 using TestVisibleO.Domain.Models;
 
